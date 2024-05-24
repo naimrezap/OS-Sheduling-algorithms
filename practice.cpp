@@ -11,37 +11,37 @@ struct compare_pair_second
 };
 struct process
 {
-    int id,at,bt,ct,tat,wt;
+    int id,at,bt,ct,tat,wt,pt;
 };
 bool compareByat(const process &a, const process &b)
 {
     return a.at<b.at;
 }
-void fi_CT(process proc[], int n, int q)
+void fi_CT(process proc[], int n)
 {
     vector<bool>ok(n,false);
-    proc[0].ct=proc[0].at+proc[0].bt;
-    int ind=0,k=0;
-    ok[0]=true;
-    for(int j=1; j<n; j++)
+  //  proc[0].ct=proc[0].at+proc[0].bt;
+    int hpt, cnt=0;
+
+    for(int j=0; j<n; j++)
     {
-        int mn=INT_MAX;
-        for(int i=1; i<n; i++)
+        int mn=INT_MIN, ind=-1;
+        for(int i=0; i<n; i++)
         {
-            if(proc[i].at<=proc[k].ct && ok[i]==false)
+            if(proc[i].at<=cnt && ok[i]==false && proc[i].pt>mn)
             {
 
-                if(proc[i].bt<mn)
-                {
-                    mn=proc[i].bt;
-                    ind=i;
-                }
+               mn=proc[i].pt;
+               ind=i;
 
             }
         }
-        proc[ind].ct=proc[k].ct+proc[ind].bt;
-        k=ind;
+        if(ind!=-1){
+              proc[ind].ct=cnt+proc[ind].bt;
         ok[ind]=true;
+        cnt=proc[ind].ct;
+        }
+
 
     }
 }
@@ -69,16 +69,16 @@ int  main()
 {
 
     int n,q;
-    cin>>n>>q;
+    cin>>n;
     process proc[n];
     for(int i=0; i<n; i++)
     {
         proc[i].id=i+1;
-        cin>>proc[i].at>>proc[i].bt;
+        cin>>proc[i].pt>>proc[i].at>>proc[i].bt;
 
     }
     sort(proc,proc+n, compareByat);
-    fi_CT(proc, n,q);
+    fi_CT(proc,n);
     fiTAT(proc,n);
     fiWT(proc,n);
     cout<<"pn\t\t"<<"at\t\t"<<"bt\t\t"<<"ct\t\t"<<"tat\t\t"<<"wt\t\t"<<endl;

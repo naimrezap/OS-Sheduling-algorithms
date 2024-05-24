@@ -55,7 +55,7 @@ int main()
         ans[k++]=y;       // if(a==-1) ans.push_back(-1);
     }
     cout<<"p\t\t"<<"pro size\t\t"<<"bl"<<endl;
-    for(int i=0;i<n;i++)
+    for(int i=0;i<m;i++)
     {
         cout<<v[i].first<<"\t\t"<<v[i].second<<"\t\t\t"<<"process="<<i+1<<"->"<<ans[i]<<endl;
     }
